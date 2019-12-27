@@ -1,0 +1,12 @@
+﻿syntax = "proto3";
+package shared;
+
+import "google/protobuf/duration.proto";
+
+option csharp_namespace = "Shared";
+
+message ShutDownInfo {
+	bool isShuttingDown = 1;
+	google.protobuf.Duration duration = 2;
+
+}
