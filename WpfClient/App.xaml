@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:WpfClient"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <vm:ViewModelLocator 
+                xmlns:vm="clr-namespace:WpfClient" 
+                x:Key= "Locator"
+                />
+
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -29,7 +29,7 @@ namespace Worker
             while (!stoppingToken.IsCancellationRequested)
             {
                 CheckTime();
-                //await SetComputerTime();
+                await SetComputerTime();
                 await Task.Delay(60000, stoppingToken);
             }
         }
@@ -60,8 +60,6 @@ namespace Worker
                 Arguments = shutDownInfo.Arguments,
                 FileName = shutDownInfo.Path
             };
-            //ShutDownInfoHolder.ShutDownInfo.IsShuttingDown = true;
-            //ShutDownInfoHolder.ShutDownInfo.Duration = Duration.FromTimeSpan(TimeSpan.FromSeconds(180));
             Process.Start(info);
         }
 

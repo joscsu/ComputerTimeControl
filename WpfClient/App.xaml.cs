@@ -5,6 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace WpfClient
 {
@@ -13,17 +16,54 @@ namespace WpfClient
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
+        private readonly IHost host;
+        public static IServiceProvider ServiceProvider { get; private set; }
+        public App()
         {
-            var args = e.Args;
-            if (args != null & args.Length == 1)
-            {
-                if (args[0].ToUpper() == "SHUTDOWN")
-                {
-                    this.StartupUri = new Uri("ShutDownWindow.xaml", UriKind.Relative);
-                }
-            }
+            host = Host.CreateDefaultBuilder()
+               .ConfigureServices((context, services) =>
+               {
+                   ConfigureServices(context.Configuration, services);
+               })
+               .Build();
+            ServiceProvider = host.Services;
+        }
+        private void ConfigureServices(IConfiguration configuration,
+                IServiceCollection services)
+        {
+            //services.Configure<AppSettings>(configuration
+            //    .GetSection(nameof(AppSettings)));
+            //services.AddScoped<ISampleService, SampleService>();
+
+            // Register all ViewModels.
+            services.AddSingleton<MainViewModel>();
+
+            // Register all the Windows of the applications.
+            services.AddTransient<MainWindow>();
+
+            services.AddTransient<ClientDbContext>();
+        }
+
+        protected override async void OnStartup(StartupEventArgs e)
+        {
+            await host.StartAsync();
             base.OnStartup(e);
         }
+
+        protected override async  void OnExit(ExitEventArgs e)
+        {
+            if (host != null)
+            {
+                await host.StopAsync();
+                host.Dispose();
+            }
+            base.OnExit(e);
+        }
+    }
+
+    public class ViewModelLocator
+    {
+        public MainViewModel MainViewModel
+            => App.ServiceProvider.GetRequiredService<MainViewModel>();
     }
 }
