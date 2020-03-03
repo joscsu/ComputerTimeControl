@@ -1,0 +1,19 @@
+﻿@page "/computertimerules"
+
+<h1>Undantagsregler</h1>
+<label for="rule-start">Start</label>
+<input type="datetime" name="ruleStart" @bind-value="ruleStart" id="rule-start" />
+<label for="rule-end">Slut</label>
+<input type="datetime" name="ruleEnd" @bind-value="ruleEnd" id="rule-end"/>
+<button class="btn btn-primary" @onclick="AddRule">Lägg till regel</button>
+
+@code {
+    private DateTime ruleStart = DateTime.MinValue;
+    private DateTime ruleEnd = DateTime.MaxValue;
+
+    private void AddRule()
+    {
+        var client = new HttpClient();
+        System.Diagnostics.Debug.WriteLine(ruleStart);
+    }
+}

@@ -38,7 +38,7 @@ namespace WpfClient
             }
             if (end.HasValue)
             {
-                computerTimes = computerTimes.Where(x => x.Stop < end);
+                computerTimes = computerTimes.Where(x => x.Stop < end.Value.AddDays(1));
             }
 
             ComputerTimeViewModels.Clear();

@@ -9,7 +9,7 @@ namespace Worker.Configuration
     {
         public Logging Logging { get; set; }
         public Computertimecontrol ComputerTimeControl { get; set; }
-        public ShutDownInfo ShutDownInfo { get; set; }
+        public DatabaseSettings DatabaseSettings { get; set; }
     }
 
 }

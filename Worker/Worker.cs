@@ -28,8 +28,8 @@ namespace Worker
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                CheckTime();
                 await SetComputerTime();
+                CheckTime();
                 await Task.Delay(60000, stoppingToken);
             }
         }
@@ -67,7 +67,7 @@ namespace Worker
         {
             var now = DateTime.Now;
             var maxDiff = TimeSpan.FromSeconds(70);
-            using (var context = new WorkerDbContext())
+            using (var context = new WorkerDbContext(configuration))
             {
                 var computerTime = context.ComputerTimes.OrderByDescending(x => x.Stop).FirstOrDefault();
                 if (computerTime == null)

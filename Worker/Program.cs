@@ -26,7 +26,6 @@ namespace Worker
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddHostedService<Worker>();
-                    services.AddHostedService<ShutDownInfoWorker>();
                 }).UseWindowsService();
     }
 }
