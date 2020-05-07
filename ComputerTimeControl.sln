@@ -16,7 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfClient", "WpfClient\WpfClient.csproj", "{8AB4B958-6074-4E49-BFDE-3548F3B4276F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfClient", "WpfClient\WpfClient.csproj", "{8AB4B958-6074-4E49-BFDE-3548F3B4276F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{B9BFE50B-8751-494A-953C-5D07FB140B78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{8AB4B958-6074-4E49-BFDE-3548F3B4276F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AB4B958-6074-4E49-BFDE-3548F3B4276F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AB4B958-6074-4E49-BFDE-3548F3B4276F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9BFE50B-8751-494A-953C-5D07FB140B78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9BFE50B-8751-494A-953C-5D07FB140B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9BFE50B-8751-494A-953C-5D07FB140B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9BFE50B-8751-494A-953C-5D07FB140B78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

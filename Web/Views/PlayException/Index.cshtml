@@ -1,0 +1,34 @@
+﻿@model IEnumerable<WebAppAzureAD.Models.PlayException>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>ViewAll</h1>
+
+<p>
+    <a asp-action="Create">Neu</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Start</th>
+            <th>Dauer</th>
+            <th>Grund</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>@item.Start</td>
+            <td>@item.Duration</td>
+            <td>@item.Reason</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
