@@ -1,25 +1,24 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Shared;
-using Worker.Configuration;
 
-namespace Worker
+
+namespace WpfClient
 {
-    public class WorkerDbContext : DbContext
+    public class ClientDbContext : DbContext
     {
         private readonly IConfiguration configuration;
 
-        public WorkerDbContext(IConfiguration configuration)
+        public ClientDbContext(IConfiguration configuration)
         {
             this.configuration = configuration;
         }
-
         public DbSet<ComputerTime.Shared.ComputerTime> ComputerTimes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var databaseSettings = configuration.GetSection("databaseSettings").Get<DatabaseSettings>();
-            optionsBuilder.UseSqlite($"Filename={databaseSettings.Path}");
+            var appSettings = configuration.GetSection("appSettings").Get<AppSettings>();
+            optionsBuilder.UseSqlite($"Filename={appSettings.DatabasePath}");
             base.OnConfiguring(optionsBuilder);
         }
     }

@@ -1,7 +1,8 @@
-﻿{
+{
   "profiles": {
     "Worker": {
       "commandName": "Project",
+      "commandLineArgs": "PlayExceptionUrl=https://web20200510135450.azurewebsites.net/api/PlayException",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
       }

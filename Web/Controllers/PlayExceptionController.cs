@@ -2,19 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ComputerTime.Shared;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Data;
 using WebAppAzureAD.Models;
 
 namespace WebAppAzureAD.Controllers
 {
     public class PlayExceptionController : Controller
     {
-        private static List<PlayException> list = new List<PlayException>();
-        public static List<PlayException> List => list;
+        private readonly IPlayExceptionRepository repository;
+
+        public PlayExceptionController(IWebHostEnvironment hostEnvironment, IPlayExceptionRepository repository)
+        {
+            var dbPath = System.IO.Path.Combine(hostEnvironment.WebRootPath, "App_Data", "ex.json");
+            this.repository = repository;
+            this.repository.DbPath = dbPath;
+        }
         // GET: PlayException
         public ActionResult Index()
         {
+            var list = repository.Get();
             return View(list);
         }
 
@@ -38,13 +48,10 @@ namespace WebAppAzureAD.Controllers
             try
             {
                 var model = new PlayException();
-                // TODO: Add insert logic here
-                int id = list.Any() ? list.Select(x => x.Id).Max() + 1 : 1;
-                model.Id = id;
                 model.Start = DateTime.Parse(collection["Start"]);
                 model.Duration = int.Parse(collection["Duration"]);
                 model.Reason = collection["Reason"];
-                list.Add(model);
+                repository.Create(model);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -56,7 +63,8 @@ namespace WebAppAzureAD.Controllers
         // GET: PlayException/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var model = repository.Get(id);
+            return View(model);
         }
 
         // POST: PlayException/Edit/5
@@ -66,8 +74,14 @@ namespace WebAppAzureAD.Controllers
         {
             try
             {
-                // TODO: Add update logic here
-
+                var model = new PlayException()
+                {
+                    Id = id
+                };
+                model.Start = DateTime.Parse(collection["Start"]);
+                model.Duration = int.Parse(collection["Duration"]);
+                model.Reason = collection["Reason"];
+                repository.Update(model);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -79,7 +93,8 @@ namespace WebAppAzureAD.Controllers
         // GET: PlayException/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var model = repository.Get(id);
+            return View(model);
         }
 
         // POST: PlayException/Delete/5
@@ -89,8 +104,7 @@ namespace WebAppAzureAD.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
+                repository.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

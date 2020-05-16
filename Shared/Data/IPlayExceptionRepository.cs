@@ -1,14 +1,15 @@
 ﻿using ComputerTime.Shared;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Shared.Data
 {
     public interface IPlayExceptionRepository
     {
-        Task<IQueryable<PlayException>> Get();
-        Task<PlayException> Create(PlayException playException);
-        Task Update(PlayException playException);
-        Task Delete(int id);
+        string DbPath { get; set; }
+        ICollection<PlayException> Get();
+        PlayException Get(int id);
+        PlayException Create(PlayException playException);
+        void Update(PlayException playException);
+        void Delete(int id);
     }
 }

@@ -5,8 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        Title="MainWindow" Height="450" Width="800"
+        DataContext="{Binding Source={StaticResource Locator}, Path=MainViewModel}">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+            <Label>Startdatum:</Label>
+            <DatePicker SelectedDate="{Binding Path=StartDate}"></DatePicker>
+            <Label>EndDatum:</Label>
+            <DatePicker SelectedDate="{Binding Path=EndDate}"></DatePicker>
+            <Button Width="100" Margin="10,2" Command="{Binding Path=SearchCommand}">Sök</Button>
+        </StackPanel>
+        <ListBox DockPanel.Dock="Bottom"  Background="AliceBlue" ItemsSource="{Binding ComputerTimeViewModels}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Name="border" BorderBrush="DarkBlue" BorderThickness="1"
+                        Padding="5" Margin="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Datum:" Padding="5,2"></TextBlock>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=Date, StringFormat=m}" Padding="5,2"></TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="Summa:" Padding="5,2"></TextBlock>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Sum, StringFormat={}{0:hh}:{0:mm}:{0:ss}}" Padding="5,2"></TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Exakt:" Padding="5,2"></TextBlock>
+                            <Expander Grid.Row="1" Grid.Column="2">
+                                <ListBox ItemsSource="{Binding ComputerTimes}"></ListBox>
+                            </Expander>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
 </Window>

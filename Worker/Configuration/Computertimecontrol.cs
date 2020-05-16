@@ -1,4 +1,4 @@
-﻿namespace Worker
+﻿namespace Worker.Configuration
 {
     public class Computertimecontrol
     {

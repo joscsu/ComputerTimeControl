@@ -1,4 +1,6 @@
-﻿namespace Worker
+﻿using Worker.Configuration;
+
+namespace Worker
 {
     public class GlobalConfigurationSettings
     {
